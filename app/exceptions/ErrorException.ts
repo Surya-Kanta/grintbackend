@@ -1,6 +1,7 @@
 
 type ErrorContent = {
-    status: string,
+    status: false,
+    key: string,
     message: string,
     content?: object
 }
@@ -10,6 +11,7 @@ const ErrorConstants: {[key: string]: string} = {
     EMAILALREADYEXISTS: 'Email already exist in the system!',
     INVALIDPASSWORD: 'Invalid Password!',
     INVALIDEMAIL: 'Invalid Email!',
+    VALIDATIONERROR: 'Invalid data!',
 }
 
 export default class ErrorException extends Error
@@ -24,7 +26,7 @@ export default class ErrorException extends Error
         super(key);
         this.key = ErrorConstants[key] ? key : 'SOMETHINGWENTWRONG';
 
-        this.message = ErrorConstants[key] ?? key; // debugging
+        this.message = ErrorConstants[this.key]; // debugging
         this.extraData = extraData;
         this.statusCode = 400;
 
@@ -34,7 +36,8 @@ export default class ErrorException extends Error
     render()
     {
         const response: ErrorContent = {
-            status: this.key,
+            status: false,
+            key: this.key,
             message: this.message
         };
 

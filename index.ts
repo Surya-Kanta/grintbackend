@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import {apiRouter} from './routes';
+import cors from 'cors';
 import mongooseConnect from './databases/mongoose';
 
 const app: Express = express()
@@ -12,6 +13,10 @@ mongooseConnect();
 app.get('/', (req: Request, res: Response) => {
   res.send('This route is not supported')
 });
+
+app.use(cors({
+    origin : '*',
+}));
 
 app.use(express.json());
 

@@ -60,9 +60,20 @@ const ProfileController = PreController(async (req: Request, res: Response) => {
     });
 });
 
+const LogoutController = PreController(async (req: Request, res: Response) => {
+    const session = res.locals.session;
+    session.deleteOne();
+
+    res.status(202).json({
+        "status": true,
+        "message": "Logout successful"
+    });
+});
+
 
 export {
     LoginController,
     RegistrationController,
-    ProfileController
+    ProfileController,
+    LogoutController
 }

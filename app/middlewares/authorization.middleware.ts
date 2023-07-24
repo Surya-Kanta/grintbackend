@@ -27,6 +27,7 @@ export const AuthorizationMiddleware = async (req: Request, res: Response, next:
 
     if (user) {
         res.locals.user = user;
+        res.locals.session = session;
         next();
     }
 }
